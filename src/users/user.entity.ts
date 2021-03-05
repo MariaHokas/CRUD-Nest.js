@@ -16,7 +16,6 @@ export class User {
 
   @Column()
   points: number;
-  
 }
 
 export class UserEntity {}

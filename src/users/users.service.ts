@@ -15,13 +15,13 @@ export class UsersService {
 
   async findAllAlphabeticalorder(): Promise<User[]> {
     return await this.usersRepository.find({
-      order: {fullName: 'ASC'}
+      order: { fullName: 'ASC' },
     });
   }
 
   async findOrderByMostpopular(): Promise<User[]> {
     return await this.usersRepository.find({
-      order: {points: 'DESC'}
+      order: { points: 'DESC' },
     });
   }
 
@@ -36,23 +36,22 @@ export class UsersService {
     console.log(_fullName);
     return await this.usersRepository.find({
       select: ['fullName'],
-      where: [{ fullName: _fullName === _fullName}],
+      where: [{ fullName: _fullName === _fullName }],
     });
   }
 
   async createUser(user: User) {
     this.usersRepository.save(user);
-    return user.fullName
+    return user.fullName;
   }
 
   async update(user: User) {
     this.usersRepository.update(user.id, user);
-    return `päivitetty käyttäjä id: ${user.id} uusi  nimi: ${user.fullName} `
-}
-
+    return `Updated user id: ${user.id} new name: ${user.fullName} `;
+  }
 
   async deleteUser(user: User) {
     this.usersRepository.delete(user);
-    return `---Käyttäjä poistettu---`;
+    return `---User deleted---`;
   }
 }

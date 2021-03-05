@@ -51,10 +51,10 @@ export class UsersController {
 
   @Put(':id/update')
   async update(@Param('id') id, @Body() user: User): Promise<any> {
-      user.id = Number(id);
-      console.log('Update #' + user.id)
-      return this.service.update(user);
-  }  
+    user.id = Number(id);
+    console.log('Update #' + user.id);
+    return this.service.update(user);
+  }
 
   @Delete(':id')
   deleteUser(@Param() params) {
