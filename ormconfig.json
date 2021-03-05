@@ -1,0 +1,14 @@
+{
+    "type": "mssql",
+    "host": "localhost",
+    "port": 1433,
+    "username": "username",
+    "password": "password",
+    "database": "DataBase",
+    "entities": ["dist/**/*.entity{.ts,.js}"],
+    "synchronize": true,
+    "options": {
+      "encrypt": true,
+      "enableArithAbort": true
+    }
+}
