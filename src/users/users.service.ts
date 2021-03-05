@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { CreateUserDto } from './create-user.dto';
 import { User } from './user.entity';
 
 @Injectable()
@@ -15,7 +16,7 @@ export class UsersService {
 
   async findAllAlphabeticalorder(): Promise<User[]> {
     return await this.usersRepository.find({
-      order: { fullName: 'ASC' },
+      order: { firstName: 'ASC' },
     });
   }
 
@@ -27,27 +28,27 @@ export class UsersService {
 
   async getUser(_id: number): Promise<User[]> {
     return await this.usersRepository.find({
-      select: ['fullName', 'birthday', 'isActive'],
+      select: ['firstName', 'birthday', 'isActive'],
       where: [{ id: _id }],
     });
   }
 
-  async getUserByFullName(_fullName: string): Promise<User[]> {
-    console.log(_fullName);
+  async getUserByFirstName(firstName: string): Promise<User[]> {
+    console.log(firstName);
     return await this.usersRepository.find({
-      select: ['fullName'],
-      where: [{ fullName: _fullName === _fullName }],
+      select: ['firstName'],
+      where: [{ firstName: firstName }],
     });
   }
 
-  async createUser(user: User) {
+  async createUser(user: CreateUserDto) {
     this.usersRepository.save(user);
-    return user.fullName;
+    return user.firstName;
   }
 
   async update(user: User) {
     this.usersRepository.update(user.id, user);
-    return `Updated user id: ${user.id} new name: ${user.fullName} `;
+    return `Updated user id: ${user.id} new name: ${user.firstName} `;
   }
 
   async deleteUser(user: User) {

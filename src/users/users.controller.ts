@@ -6,9 +6,11 @@ import {
   Put,
   Delete,
   Param,
+  Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
+import { CreateUserDto } from './create-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -34,20 +36,20 @@ export class UsersController {
     return this.service.getUser(params.id);
   }
 
-  @Get(':fullName')
-  getUserByFullName(@Param() params) {
-    return this.service.getUserByFullName(params.fullName);
+  // @Get(':fullName')
+  // getUserByFirstName(@Param() params) {
+  //   return this.service.getUserByFirstName(params.fullName);
+  // }
+
+  @Get('findByFilter')
+  async findByFilter(@Query() firstName): Promise<User[]> {
+    return this.service.getUserByFirstName(firstName);
   }
 
   @Post('create')
-  create(@Body() user: User) {
+  create(@Body() user: CreateUserDto) {
     return this.service.createUser(user);
   }
-
-  // @Put(':id')
-  // update(@Param('id') id: number, @Body() user: User) {
-  //   return this.service.updateUser(+id, user);
-  // }
 
   @Put(':id/update')
   async update(@Param('id') id, @Body() user: User): Promise<any> {

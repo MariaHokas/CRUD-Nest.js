@@ -1,10 +1,10 @@
 {
     "type": "mssql",
-    "host": "localhost",
+    "host": "DESKTOP-81GDOMV",
     "port": 1433,
     "username": "node_user1",
     "password": "node_user1",
-    "database": "DataBase",
+    "database": "database_test",
     "entities": ["dist/**/*.entity{.ts,.js}"],
     "synchronize": true,
     "options": {
