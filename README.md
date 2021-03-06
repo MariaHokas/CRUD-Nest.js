@@ -59,9 +59,9 @@ AZURE_STORAGE_ACCESS_KEY=ACCESS_KEY
 AZURE_STORAGE_ACCOUNT=STORAGE_ACCOUNT
 ```
 
-## Setting up Local DB
+## Setting up Local database
 
-All DB variables will be taken from .env file.
+All database variables will be taken from .env file.
 ```bash
 Start you docker-compose first with command
 $ docker-compose up -d
