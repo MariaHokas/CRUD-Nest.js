@@ -13,7 +13,7 @@ import { UpdateAssignmentDto } from './dto/update-assignment.dto';
 
 @Controller('assignment')
 export class AssignmentController {
-  constructor(private readonly assignmentService: AssignmentService) {}
+  constructor(private assignmentService: AssignmentService) {}
 
   @Post()
   create(@Body() createAssignmentDto: CreateAssignmentDto) {

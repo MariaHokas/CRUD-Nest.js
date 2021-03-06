@@ -6,23 +6,21 @@ import {
   Put,
   Delete,
   Param,
-  Query,
-  UsePipes,
-  ValidationPipe,
-  Res,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from '../entities/user.entity';
-import { CreateUserDto } from './create-user.dto';
-import { Recoverable } from 'node:repl';
-import { query } from 'express';
-import { Observable } from 'rxjs';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Controller('users')
 export class UsersController {
   constructor(private service: UsersService) {}
+  
+  @Post()
+  create(@Body() user: CreateUserDto) {
+    return this.service.createUser(user);
+  }
 
-  @Get('all')
+  @Get()
   findAll(): Promise<User[]> {
     return this.service.getUsers();
   }
@@ -40,11 +38,6 @@ export class UsersController {
   @Get(':id')
   get(@Param() params) {
     return this.service.getUser(params.id);
-  }
-
-  @Post('create')
-  create(@Body() user: CreateUserDto) {
-    return this.service.createUser(user);
   }
 
   @Put(':id/update')

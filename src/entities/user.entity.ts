@@ -4,11 +4,13 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   CreateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { Assignment } from './assignment.entity';
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @Column({ length: 100 })
@@ -34,6 +36,9 @@ export class User {
 
   @UpdateDateColumn()
   updated!: Date;
+
+  @OneToMany(() => Assignment, assignment => assignment.user)
+  assignments: Assignment[];
 }
 
 export class UserEntity {}

@@ -1,15 +1,24 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Assignment } from 'src/entities/assignment.entity';
+import { User } from 'src/entities/user.entity';
+import { Repository } from 'typeorm';
 import { CreateAssignmentDto } from './dto/create-assignment.dto';
 import { UpdateAssignmentDto } from './dto/update-assignment.dto';
 
 @Injectable()
 export class AssignmentService {
-  create(createAssignmentDto: CreateAssignmentDto) {
-    return 'This action adds a new assignment';
+  constructor(
+    @InjectRepository(Assignment) private assignmentRepository: Repository<Assignment>,
+  ) {}
+
+  async create(createAssignmentDto: CreateAssignmentDto) {
+    this.assignmentRepository.save(createAssignmentDto);
+    return `Created assingment ${createAssignmentDto.subject} number: ${createAssignmentDto.assignment_number}`;
   }
 
-  findAll() {
-    return `This action returns all assignment`;
+  async findAll(): Promise<Assignment[]> {
+    return await this.assignmentRepository.find();
   }
 
   findOne(id: number) {
@@ -22,5 +31,10 @@ export class AssignmentService {
 
   remove(id: number) {
     return `This action removes a #${id} assignment`;
+  }
+
+  async deleteUser(user: User) {
+    this.assignmentRepository.delete(user);
+    return `---User deleted---`;
   }
 }
