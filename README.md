@@ -24,7 +24,7 @@
 
 ## Description
 
-Simple CRUD Nest.js app with docker. Started with [Nest](https://github.com/nestjs/nest) framework starter repository.
+Simple CRUD Nest.js app with docker and swagger. Started with [Nest](https://github.com/nestjs/nest) framework starter repository.
 
 ## Service contains such modules:
 
@@ -36,6 +36,8 @@ It's required to install:
  2. [NVM](https://github.com/nvm-sh/nvm) for managing `Node.js` versions.
 
 ## Setting local environment
+
+Save .env file to your root directory.
 
 ```bash
 #DB
@@ -106,7 +108,7 @@ $ yarn star:dev
 
 
 ##  Swagger(Open API)
-For opening documentation locally paste in your browser [http://localhost:3050/docks](http://localhost:3050/api) or exchange with your custom app env `PORT`.
+For opening documentation locally paste in your browser (http://localhost:3050/api) or exchange with your custom app env `PORT`.
 
 ## License
 
