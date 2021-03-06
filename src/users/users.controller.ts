@@ -7,10 +7,16 @@ import {
   Delete,
   Param,
   Query,
+  UsePipes,
+  ValidationPipe,
+  Res,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { User } from './user.entity';
+import { User } from '../entities/user.entity';
 import { CreateUserDto } from './create-user.dto';
+import { Recoverable } from 'node:repl';
+import { query } from 'express';
+import { Observable } from 'rxjs';
 
 @Controller('users')
 export class UsersController {
@@ -36,16 +42,6 @@ export class UsersController {
     return this.service.getUser(params.id);
   }
 
-  // @Get(':fullName')
-  // getUserByFirstName(@Param() params) {
-  //   return this.service.getUserByFirstName(params.fullName);
-  // }
-
-  @Get('findByFilter')
-  async findByFilter(@Query() firstName): Promise<User[]> {
-    return this.service.getUserByFirstName(firstName);
-  }
-
   @Post('create')
   create(@Body() user: CreateUserDto) {
     return this.service.createUser(user);
@@ -62,4 +58,9 @@ export class UsersController {
   deleteUser(@Param() params) {
     return this.service.deleteUser(params.id);
   }
+
+  // @Get()
+  // index(@Query('email') email: string): Promise<Observable<User>>); {
+  //   return this.service.findByMail({ email });
+  // }
 }

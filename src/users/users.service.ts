@@ -1,8 +1,9 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { from, Observable } from 'rxjs';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './create-user.dto';
-import { User } from './user.entity';
+import { User } from '../entities/user.entity';
 
 @Injectable()
 export class UsersService {
@@ -26,18 +27,17 @@ export class UsersService {
     });
   }
 
+  async findByFirstName(user: User): Promise<User[]> {
+    return await this.usersRepository.find({
+      select: ['firstName', 'birthday', 'isActive'],
+      where: { firstName: user.firstName },
+    });
+  }
+
   async getUser(_id: number): Promise<User[]> {
     return await this.usersRepository.find({
       select: ['firstName', 'birthday', 'isActive'],
       where: [{ id: _id }],
-    });
-  }
-
-  async getUserByFirstName(firstName: string): Promise<User[]> {
-    console.log(firstName);
-    return await this.usersRepository.find({
-      select: ['firstName'],
-      where: [{ firstName: firstName }],
     });
   }
 
@@ -54,5 +54,9 @@ export class UsersService {
   async deleteUser(user: User) {
     this.usersRepository.delete(user);
     return `---User deleted---`;
+  }
+
+  async findByMail(email: string): Promise<Observable<User>> {
+    return from(this.usersRepository.findOne({ email }));
   }
 }
