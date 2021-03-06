@@ -26,10 +26,6 @@
 
 Simple CRUD Nest.js app with Docker and Swagger. Started with [Nest](https://github.com/nestjs/nest) framework starter repository.
 
-## Service contains such modules:
-
- 1. `db` - connected typerom with correct env vars
-
 ## Prerequisites
 It's required to install:
  1. [docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/) for setting up local db.
@@ -37,26 +33,41 @@ It's required to install:
 
 ## Setting local environment
 
-Save .env file to your root directory.
+Create.env file to your root directory. More information how to take image used in project to use. https://hub.docker.com/r/kcollins/mssql
 
+Example .env file
 ```bash
 #DB
-TYPEORM_HOST=localhost
-TYPEORM_PORT=PORT
-TYPEORM_USERNAME=USERNAME
-TYPEORM_PASSWORD=PASSWORD
-TYPEORM_DATABASE=DATABASE
-TYPEORM_ENTITIES=dist/**/*.entity.js
-TYPEORM_CONNECTION=mssql
-TYPEORM_SYNCHRONIZE=true
+version: '3.1'
+services:
+  db:
+    image: kcollins/mssql:latest
+    ports:
+      - 1433:1433
+    volumes:
+      - db_data:/var/opt/mssql
+      - ./db-backups:/backups
+      - ./db-init:/docker-entrypoint-initdb.d
+    secrets:
+      - sa-password
+      - mssql-password
+    environment:
+      # ACCEPT_EULA confirms your acceptance of the End-User Licensing Agreement.
+      ACCEPT_EULA: Y
+      SA_PASSWORD_FILE: /run/secrets/sa-password
+      MSSQL_DATABASE: test
+      MSSQL_USER: testuser
+      MSSQL_PASSWORD_FILE: /run/secrets/mssql-password
+      MSSQL_PID: Developer  # Change to the edition you need, e.g. "Express", "Standard", etc.
 
-#APP
-WEB_APP_BASE_URL=http://localhost:3000
-NODE_ENV=development
+secrets:
+  sa-password:
+    file: ./secrets/SA_PASSWORD
+  mssql-password:
+    file: ./secrets/MSSQL_PASSWORD
 
-#Azure storage
-AZURE_STORAGE_ACCESS_KEY=ACCESS_KEY
-AZURE_STORAGE_ACCOUNT=STORAGE_ACCOUNT
+volumes:
+  db_data:
 ```
 
 ## Setting up Local database
