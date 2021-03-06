@@ -24,49 +24,89 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Simple CRUD Nest.js app with docker. Started with [Nest](https://github.com/nestjs/nest) framework starter repository.
 
-## Installation
+## Service contains such modules:
+
+ 1. `db` - connected typerom with correct env vars
+
+## Prerequisites
+It's required to install:
+ 1. [docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/) for setting up local db.
+ 2. [NVM](https://github.com/nvm-sh/nvm) for managing `Node.js` versions.
+
+## Setting local environment
 
 ```bash
-$ npm install
+#DB
+TYPEORM_HOST=localhost
+TYPEORM_PORT=PORT
+TYPEORM_USERNAME=USERNAME
+TYPEORM_PASSWORD=PASSWORD
+TYPEORM_DATABASE=DATABASE
+TYPEORM_ENTITIES=dist/**/*.entity.js
+TYPEORM_CONNECTION=mssql
+TYPEORM_SYNCHRONIZE=true
+
+#APP
+WEB_APP_BASE_URL=http://localhost:3000
+NODE_ENV=development
+
+#Azure storage
+AZURE_STORAGE_ACCESS_KEY=ACCESS_KEY
+AZURE_STORAGE_ACCOUNT=STORAGE_ACCOUNT
 ```
 
-## Running the app
+## Setting up Local DB
+
+All DB variables will be taken from .env file.
+```bash
+Start you docker-compose first with command
+$ docker-compose up -d
+```
+To check if docker container is runing:
+
+```bash
+$ docker ps
+```
+
+## Installation of node modules
+
+Select the package manager you want to use in the project. 
+
+```bash
+$ npm run install
+```
+Or
+```bash
+$ yarn run install
+```
+
+## Running the app scripts
+
 
 ```bash
 # development
 $ npm run start
 
+or
+
+```bash
+# development
+$ yarn start
+
 # watch mode
 $ npm run start:dev
 
-# production mode
-$ npm run start:prod
-```
-
-## Test
+or
 
 ```bash
-# unit tests
-$ npm run test
+# development
+$ yarn star:dev
 
-# e2e tests
-$ npm run test:e2e
 
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+##  Swagger(Open API)
+For opening documentation locally paste in your browser [http://localhost:3050/docks](http://localhost:3050/api) or exchange with your custom app env `PORT`.
 
 ## License
 
