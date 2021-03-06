@@ -101,23 +101,23 @@ $ yarn run install
 ```bash
 # development
 $ npm run start
-
+```
 or
 
 ```bash
 # development
 $ yarn start
-
+```
 # watch mode
-$ npm run start:dev
-
-or
-
 ```bash
+$ npm run start:dev
 # development
+```
+or
+```bash
 $ yarn star:dev
 
-
+```
 ##  Swagger(Open API)
 For opening documentation locally paste in your browser (http://localhost:3050/api) or exchange with your custom app env `PORT`.
 
