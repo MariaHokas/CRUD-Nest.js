@@ -110,11 +110,12 @@ $ yarn start
 ```
 # watch mode
 ```bash
-$ npm run start:dev
 # development
+$ npm run start:dev
 ```
 or
 ```bash
+# development
 $ yarn star:dev
 
 ```
