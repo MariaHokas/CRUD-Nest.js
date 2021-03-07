@@ -7,7 +7,6 @@ import {
   Entity,
   Generated,
   JoinColumn,
-  JoinTable,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -35,7 +34,10 @@ export class Assignment {
   @UpdateDateColumn()
   updated!: Date;
 
-  @ManyToOne(() => User)
+  @Column('uuid')
+  assignment_owner_id: number;
+
+  @ManyToOne(() => User, user => user.id)
   @JoinColumn({ name: "assignment_owner_id" })
 user: User[];
 
