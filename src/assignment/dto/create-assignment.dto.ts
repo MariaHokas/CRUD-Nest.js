@@ -10,9 +10,9 @@ export class CreateAssignmentDto {
     @IsNotEmpty()
     subject: string;
 
-    // @IsInt()
-    // @IsNotEmpty()
-    // assignment_owner: number;
+    @IsInt()
+    @IsNotEmpty()
+    assignment_owner_id: number;
   
     @IsString()
     @IsOptional()

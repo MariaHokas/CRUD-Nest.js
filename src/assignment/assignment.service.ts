@@ -12,9 +12,8 @@ export class AssignmentService {
     @InjectRepository(Assignment) private assignmentRepository: Repository<Assignment>,
   ) {}
 
-  async create(createAssignmentDto: CreateAssignmentDto) {
-    this.assignmentRepository.save(createAssignmentDto);
-    return `Created assingment ${createAssignmentDto.subject} number: ${createAssignmentDto.assignment_number}`;
+  async create(createAssignmentDto: CreateAssignmentDto): Promise<CreateAssignmentDto> {
+    return await this.assignmentRepository.save(createAssignmentDto);
   }
 
   async findAll(): Promise<Assignment[]> {
