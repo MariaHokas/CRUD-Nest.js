@@ -4,7 +4,7 @@
 
 ## Description
 
-Simple CRUD Nest.js app with Docker and Swagger. Started with [Nest](https://github.com/nestjs/nest) framework starter repository.
+CRUD Nest.js app with Docker and Swagger. Started with [Nest](https://github.com/nestjs/nest) framework starter repository.
 
 ## Prerequisites
 It's required to install:
