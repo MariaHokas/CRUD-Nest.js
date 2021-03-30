@@ -68,11 +68,11 @@ $ docker ps
 Select the package manager you want to use in the project. 
 
 ```bash
-$ npm run install
+$ npm install
 ```
 Or
 ```bash
-$ yarn run install
+$ yarn install
 ```
 
 ## Running the app scripts
