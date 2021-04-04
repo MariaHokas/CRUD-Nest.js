@@ -7,6 +7,7 @@ import {
   Delete,
   Param,
   HttpCode,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from '../entities/user.entity';
@@ -14,6 +15,8 @@ import { CreateUserDto } from './dto/createUser.dto';
 import { Observable } from 'rxjs';
 import { UserI } from 'src/entities/interfaces/user.interface';
 import { LoginUserDto } from './dto/LoginUser.dto';
+import { map } from 'rxjs/operators';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -26,8 +29,17 @@ export class UsersController {
 
   @Post('login')
   @HttpCode(200)
-  login(@Body() loginUserDto: LoginUserDto): Observable<string> {
-    return this.service.login(loginUserDto);
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  login(@Body() loginUserDto: LoginUserDto): Observable<Object> {
+    return this.service.login(loginUserDto).pipe(
+      map((jwt: string) => {
+        return {
+          access_token: jwt,
+          token_type: 'JWT',
+          expires_in: 10000,
+        };
+      }),
+    );
   }
 
   @Post('t')
@@ -35,6 +47,7 @@ export class UsersController {
     return this.service.createUser(user);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   findAll(): Promise<User[]> {
     return this.service.getUsers();

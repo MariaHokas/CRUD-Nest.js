@@ -47,12 +47,16 @@ export class UsersService {
             loginUserDto.password,
             user.password,
           ).pipe(
-            map((passwordsMatches: boolean) => {
+            switchMap((passwordsMatches: boolean) => {
               if (passwordsMatches) {
-                return 'Login was Successfull';
+                return this.findOne(user.id).pipe(
+                  switchMap((user: UserI) =>
+                    this.authService.generateJwt(user),
+                  ),
+                );
               } else {
                 throw new HttpException(
-                  'Login was not Successfulll',
+                  'Login was not Successfull',
                   HttpStatus.UNAUTHORIZED,
                 );
               }
@@ -138,5 +142,9 @@ export class UsersService {
     storedPassword: string,
   ): Observable<boolean> {
     return this.authService.comparePasswords(password, storedPassword);
+  }
+
+  findOne(id: number): Observable<UserI> {
+    return from(this.usersRepository.findOne({ id }));
   }
 }
